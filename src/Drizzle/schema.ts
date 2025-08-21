@@ -42,7 +42,9 @@ export const UsersTable = pgTable("UsersTable", {
   address: varchar("address", { length: 255 }),
   role: userRoleEnum("role").default("user"),
   createdAt: timestamp("created_at").defaultNow(),
-  updatedAt: timestamp("updated_at").defaultNow()
+  updatedAt: timestamp("updated_at").defaultNow(),
+  isVerified: boolean("is_verified").default(false),
+  verificationCode: varchar("verification_code", { length: 255 }),
 });
 
 
@@ -251,4 +253,11 @@ export const supportTicketsRelations = relations(SupportTicketsTable, ({ one }) 
 
 
 export type TIUser = typeof UsersTable.$inferInsert;
-
+export type TISellerProfile = typeof SellerProfilesTable.$inferInsert;
+export type TIProduct = typeof ProductsTable.$inferInsert;
+export type TIOrder = typeof OrdersTable.$inferInsert;
+export type TIOrderItems = typeof OrderItemsTable.$inferInsert;
+export type TIPayment = typeof PaymentsTable.$inferInsert;
+export type TICategory = typeof CategoriesTable.$inferInsert;
+export type TIMessage = typeof MessagesTable.$inferInsert;
+export type TISupportTickets = typeof MessagesTable.$inferInsert;

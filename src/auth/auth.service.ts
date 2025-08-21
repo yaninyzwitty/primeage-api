@@ -26,10 +26,16 @@ export const userLoginService = async(user:TIUser) => {
     })
 }
 
-// export const verifyUserService = async(email:string) => {
-//     await db.update(UsersTable)
-//     .set({isVerified: true, verficationCode: null})
-//     .where(sql`${UsersTable.email} = ${email}`)
-//     .execute()
-//     return "User verified successfully"
-// }
+export const verifyUserService = async(email:string) => {
+    await db.update(UsersTable)
+    .set({isVerified: true, verificationCode: null})
+    .where(sql`${UsersTable.email} = ${email}`)
+    .execute()
+    return "User verified successfully"
+}
+
+export const getUserByEmailService = async (email: string) => {
+    return await db.query.UsersTable.findFirst({
+        where: sql`${UsersTable.email} = ${email}`
+    });
+}; 
