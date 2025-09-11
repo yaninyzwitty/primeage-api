@@ -47,7 +47,7 @@ export const getSupportTicketsByIdController = async (req: Request, res: Respons
 
     const SupportTickets = await getSupportTicketByIdService(id);
 
-    if (!SupportTickets) return res.status(404).json({ message: "Support tickets  not found" });
+    if (!SupportTickets) return res.status(404).json({ message: "Support ticket  not found" });
 
 
     return res.status(200).json( SupportTickets);
@@ -93,13 +93,13 @@ export const deleteSupportTicketsController = async (req: Request, res: Response
 
     const existingSupportTickets = await getSupportTicketByIdService(id);
     if(!existingSupportTickets){
-      return res.status(404).json({ message: "Support tickets  not found" });
+      return res.status(404).json({ message: "Support ticket  not found" });
     }
 
     const deletedSupportTickets = await deleteSupportTicketService(id);
 
     if(!deletedSupportTickets){
-      return res.status(400).json({ message: "Support tickets  not deleted" })
+      return res.status(400).json({ message: "Support ticket  not deleted" })
     }
 
 

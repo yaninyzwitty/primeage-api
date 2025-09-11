@@ -72,15 +72,15 @@ export const updateCategoryController = async (req: Request, res: Response) => {
 
     const existingCategoryItems = await getCategoryByIdService(id);
     if (!existingCategoryItems) {
-      return res.status(404).json({ message: "Category items not found" });
+      return res.status(404).json({ message: "Category item not found" });
     }
 
 
     const updatedCategoryItems = await updateCategoryService(id, CategorysData);
      if (!updatedCategoryItems) {
-            return res.status(400).json({ message: "Category items not updated" });
+            return res.status(400).json({ message: "Category item not updated" });
         }
-    return res.status(200).json({ message: "Category items updated successfully" });
+    return res.status(200).json({ message: "Category item updated successfully" });
   } catch (error: any) {
     return res.status(500).json({ error: error.message });
   }
@@ -93,17 +93,17 @@ export const deleteCategoryController = async (req: Request, res: Response) => {
 
     const existingCategoryItems = await getCategoryByIdService(id);
     if(!existingCategoryItems){
-      return res.status(404).json({ message: "Category items not found" });
+      return res.status(404).json({ message: "Category item not found" });
     }
 
     const deletedCategoryItems = await deleteCategoryService(id);
 
     if(!deletedCategoryItems){
-      return res.status(400).json({ message: "Category items not deleted" })
+      return res.status(400).json({ message: "Category item not deleted" })
     }
 
 
-    return res.status(200).json({ message: "Category items deleted successfully" });
+    return res.status(200).json({ message: "Category item deleted successfully" });
   } catch (error: any) {
     return res.status(500).json({ error: error.message });
   }

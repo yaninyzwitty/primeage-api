@@ -1,11 +1,22 @@
 import { Request, Response } from 'express';
 import { createOrderItemsService, deleteOrderItemsService,  getAllOrderItemsService,  getOrderItemsByIdService, updateOrderItemsService } from "./orderItems.service";
+import { getOrderByIdService } from '../orders/orders.service';
  
 export const createOrderItemsController = async(req: Request, res:Response) => {
 
   try {
 
     const orderItems = req.body
+
+    //check if order exists
+
+    const order = await getOrderByIdService(orderItems.orderId)
+
+    if(!order){
+            return res.status(400).json({ message: `Order with ID ${orderItems.orderId} does not exist.` });
+
+    }
+
 
     //convert date to date object
     if( orderItems.createdAt || orderItems.verifiedAt ){

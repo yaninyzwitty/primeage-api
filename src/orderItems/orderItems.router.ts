@@ -3,7 +3,7 @@ import { Express } from 'express'
 
 import { createOrderItemsController, deleteOrderItemsController, getAllOrderItemsController, getOrderItemsByIdController, updateOrderItemsController } from './orderItems.controller'
 
-export const orderItems = (app: Express) => {
+export const orderItem = (app: Express) => {
 
     //Get all order items
     app.route("/orderItems").get(
@@ -17,7 +17,7 @@ export const orderItems = (app: Express) => {
     )
 
     //Add a order item
-    app.route("/orderItems").post(
+    app.route("/orderItem").post(
       async(req, res , next) => {
         try {
           await createOrderItemsController(req, res)
@@ -31,7 +31,7 @@ export const orderItems = (app: Express) => {
 
 
     //Get order by id
-       app.route("/orderItems/:id").get(
+       app.route("/orderItem/:id").get(
       
           async (req, res, next) => {
             try {
@@ -45,7 +45,7 @@ export const orderItems = (app: Express) => {
 
         //Update order by ID
     
-      app.route("/orderItems/:id").put(
+      app.route("/orderItem/:id").put(
         
       
         async (req, res, next) => {
@@ -60,7 +60,7 @@ export const orderItems = (app: Express) => {
 
       //Delete order by id
       
-      app.route("/orderItems/:id").delete(
+      app.route("/orderItem/:id").delete(
         
     
         async (req, res, next) => {
@@ -77,4 +77,4 @@ export const orderItems = (app: Express) => {
 
 }
 
-export default orderItems;
+export default orderItem;

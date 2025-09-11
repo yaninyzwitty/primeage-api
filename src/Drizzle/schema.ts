@@ -51,9 +51,8 @@ export const UsersTable = pgTable("UsersTable", {
 export const SellerProfilesTable = pgTable("seller_profiles", {
   sellerProfileId: serial("seller_profile_id").primaryKey(),
 
-  userId: integer("user_id")
-    .references(() => UsersTable.userId)
-    .notNull(),
+ userId: integer("user_id")
+    .references(() => UsersTable.userId, { onDelete: "cascade" }), // ✅ cascade
 
   businessName: varchar("business_name", { length: 255 }).notNull(),
   category: sellerCategoryEnum("category").notNull(),
@@ -83,8 +82,10 @@ export const SellerProfilesTable = pgTable("seller_profiles", {
 
 export const ProductsTable = pgTable("ProductsTable", {
   productId: serial("product_id").primaryKey(),
-  sellerProfileId: integer("seller_profile_id").references(() => SellerProfilesTable.sellerProfileId),
-  categoryId: integer("category_id").references(() => CategoriesTable.categoryId),
+sellerProfileId: integer("seller_profile_id")
+    .references(() => SellerProfilesTable.sellerProfileId, { onDelete: "cascade" }), // ✅ cascade
+  categoryId: integer("category_id")
+    .references(() => CategoriesTable.categoryId, { onDelete: "cascade" }), // ✅ cascade
   name: varchar("name", { length: 255 }),
   description: text("description"),
   price: numeric("price", { precision: 10, scale: 2 }),
@@ -104,15 +105,18 @@ status: orderStatusEnum("status").default("pending"),
 
 export const OrderItemsTable = pgTable("order_items", {
   orderItemId: serial("order_item_id").primaryKey(),
-  orderId: integer("order_id").references(() => OrdersTable.orderId),
-  productId: integer("product_id").references(() => ProductsTable.productId),
+  orderId: integer("order_id")
+    .references(() => OrdersTable.orderId, { onDelete: "cascade" }), // ✅ cascade
+  productId: integer("product_id")
+    .references(() => ProductsTable.productId, { onDelete: "cascade" }), // ✅ cascade
   quantity: integer("quantity"),
   price: numeric("price", { precision: 10, scale: 2 })
 });
 
 export const PaymentsTable = pgTable("PaymentsTable", {
   paymentId: serial("payment_id").primaryKey(),
-  orderId: integer("order_id").references(() => OrdersTable.orderId),
+  orderId: integer("order_id")
+    .references(() => OrdersTable.orderId, { onDelete: "cascade" }),
   amount: numeric("amount", { precision: 10, scale: 2 }),
   paymentStatus: paymentStatusEnum("payment_status").default("pending"),
   paymentMethod: paymentMethodEnum("payment_method"),
@@ -130,8 +134,10 @@ export const CategoriesTable = pgTable("CategoriesTable", {
 
 export const MessagesTable = pgTable("MessagesTable", {
   messageId: serial("message_id").primaryKey(),
-  senderId: integer("sender_id").references(() => UsersTable.userId).notNull(),
-  receiverId: integer("receiver_id").references(() => UsersTable.userId).notNull(),
+ senderId: integer("sender_id")
+    .references(() => UsersTable.userId, { onDelete: "cascade" }), // ✅ cascade
+  receiverId: integer("receiver_id")
+    .references(() => UsersTable.userId, { onDelete: "cascade" }), // ✅ cascade
   content: text("content").notNull(),
   createdAt: timestamp("created_at").defaultNow(),
 });
@@ -140,7 +146,8 @@ export const MessagesTable = pgTable("MessagesTable", {
 
 export const SupportTicketsTable = pgTable("support_tickets", {
   ticketId: serial("ticket_id").primaryKey(),
-  userId: integer("user_id").references(() => UsersTable.userId),
+  userId: integer("user_id")
+    .references(() => UsersTable.userId, { onDelete: "cascade" }), // ✅ cascade
   subject: varchar("subject", { length: 255 }),
   description: varchar("description", { length: 1000 }),
   status: ticketStatusEnum("status").default("open"),

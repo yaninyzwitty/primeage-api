@@ -9,10 +9,11 @@ export const createPaymentController = async(req: Request, res:Response) => {
     const paymentItems = req.body
 
     //convert date to date object
-    if( paymentItems.createdAt || paymentItems.verifiedAt ){
+    if( paymentItems.createdAt || paymentItems.updated_at || paymentItems.paymentDate ){
 
       paymentItems.createdAt = new Date(paymentItems.createdAt)
-      paymentItems.verifiedAt = new Date(paymentItems.verifiedAt)
+      paymentItems.updated_at = new Date(paymentItems.updated_at)
+      paymentItems.paymentDate = new Date(paymentItems.paymentDate)
     }
     const createdPaymentItems = await createPaymentService(paymentItems)
     if(!createdPaymentItems) return res.json({message: "Payment items not created"})

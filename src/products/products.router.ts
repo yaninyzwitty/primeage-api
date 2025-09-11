@@ -5,7 +5,7 @@ import { createProductController, deleteProductController, getAllProductsControl
 export const product = (app: Express) => {
 
     //Get all product
-    app.route("/product").get(
+    app.route("/products").get(
         async( req, res, next) => {
             try {
                 await getAllProductsController(req, res)

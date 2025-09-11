@@ -5,7 +5,7 @@ import { createPaymentController, deletePaymentController, getAllPaymentsControl
 export const payment = (app: Express) => {
 
     //Get all payment
-    app.route("/payment").get(
+    app.route("/payments").get(
         async( req, res, next) => {
             try {
                 await getAllPaymentsController(req, res)

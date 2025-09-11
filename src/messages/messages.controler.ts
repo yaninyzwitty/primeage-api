@@ -27,9 +27,9 @@ export const createMessageController = async(req: Request, res:Response) => {
 
 export const getAllMessagesController = async(req: Request, res:Response) => {
     try {
-        const message = await getAllMessagesService()
-        if(!message) return res.json({message: "No Message  found"})
-        return res.status(200).json({message:"Message  fetched successfully"})
+        const messages = await getAllMessagesService()
+        if(!messages) return res.json({message: "No Messages  found"})
+        return res.status(200).json({message:"Messages  fetched successfully", messages})
 
         
     } catch (error :any) {
